@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "KIF-KUF-FE"
+    }
+  },
+  "defaultProject": "KIF-KUF-FE",
+  "cli": {
+    "analytics": false
+  }
 }
