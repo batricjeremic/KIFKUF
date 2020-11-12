@@ -19,11 +19,13 @@ export class UploadComponent implements OnInit {
   }
 
   getWeather(): void {
-    this.backendService.getWeather().subscribe(data=> {
-      this.weather=data;
-    console.log(this.weather)});
-    
-    ;
+    this.backendService.getWeather().subscribe(data => {
+      this.weather = data;
+      console.log(this.weather)});
+  }
+
+  onChooseFile(data): void {
+    console.log(data.target.value);
   }
 
 }
