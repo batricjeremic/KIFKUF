@@ -7,8 +7,8 @@
             <div class="input-group">
                 <div class="custom-file">
                 <input (change)="onChooseFile($event)" type="file" class="custom-file-input" id="inputGroupFile01"
-                    aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label mt-0" for="inputGroupFile01">Select a file</label>
+                    aria-describedby="inputGroupFileAddon01" accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                <label class="custom-file-label mt-0" for="inputGroupFile01">{{filePath}}</label>
                 </div>
             </div>
             <button class="btn btn-large btn-success mt-3">Upload</button>
