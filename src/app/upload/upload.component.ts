@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackEndService } from '../back-end-service.service';
 
 @Component({
   selector: 'app-upload',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  constructor() { }
+  weather : any = ['vrijeme','vreme'];
+
+  constructor(
+    private backendService: BackEndService
+  ) { }
 
   ngOnInit(): void {
+    this.getWeather();
+  }
+
+  getWeather(): void {
+    this.backendService.getWeather().subscribe(data=> {
+      this.weather=data;
+    console.log(this.weather)});
+    
+    ;
   }
 
 }
