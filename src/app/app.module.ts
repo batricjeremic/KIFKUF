@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { UploadComponent } from './upload/upload.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UploadComponent,
     DashboardComponent,
-    SettingsComponent
+    SettingsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

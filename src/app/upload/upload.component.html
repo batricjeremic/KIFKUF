@@ -1,9 +1,21 @@
-<br/>
-<br/>
-<br/>
-<br/>
-<br/><p>upload works!</p>
-<br/>
-<div *ngFor="let w of weather">
-    {{w.date}}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col">
+            <h1>Upload a file from local disk</h1>
+            <p>Browse an excel file and press the upload button</p>
+
+            <div class="input-group">
+                <div class="custom-file">
+                <input (change)="onChooseFile($event)" type="file" class="custom-file-input" id="inputGroupFile01"
+                    aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label mt-0" for="inputGroupFile01">Select a file</label>
+                </div>
+            </div>
+            <button class="btn btn-large btn-success mt-3">Upload</button>
+        </div>
+
+        <div class="col">
+            <img src="../../assets/img/processing.png" width="300px" alt="File processing">
+        </div>
+    </div>
 </div>
