@@ -3,6 +3,8 @@ import { BackEndService } from '../back-end-service.service';
 
 import { ExcelReadingService } from '../excel-reading.service';
 import * as XLSX from 'xlsx';
+import * as SAMPLE from '../shared/property-mapping.model';
+import * as inbound from '../shared/inbound-invoice.model';
 
 
 @Component({
@@ -14,7 +16,8 @@ export class UploadComponent implements OnInit {
 
   weather : any = ['vrijeme','vreme'];
   filePath : string = "Please select a file";
-  readData: any = "I am empty";
+  readData: Array<any> = ["I am empty"];
+  inboundInvoices : Array<inbound.InboundInvoice> = null;
 
   constructor(
     private backendService: BackEndService,
@@ -46,14 +49,32 @@ export class UploadComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-      this.readData = jsonData;      
+      this.readData = jsonData[Object.keys(jsonData)[0]];      
       
     }
     reader.readAsBinaryString(file);
   }
 
   onUpload() {
-    console.log(this.readData)
+    
+    //console.log(this.readData);
+
+    let auxData = this.readData.slice(0,5);
+
+    auxData.forEach(element => {
+      let invoice = new inbound.InboundInvoice();
+      console.log(element);
+      for (let prop in element){
+        console.log(prop);
+        
+        let invProp = SAMPLE.sampleMap.get(prop);
+        console.log(invProp);
+
+        invoice[invProp] = element[prop];
+      }
+
+      console.log(invoice);
+    });
   }
 
 }
