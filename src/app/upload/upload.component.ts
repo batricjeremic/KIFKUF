@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BackEndService } from '../back-end-service.service';
 
 import { ExcelReadingService } from '../excel-reading.service';
+import * as XLSX from 'xlsx';
 
 
 @Component({
@@ -13,6 +14,7 @@ export class UploadComponent implements OnInit {
 
   weather : any = ['vrijeme','vreme'];
   filePath : string = "Please select a file";
+  readData: any = "I am empty";
 
   constructor(
     private backendService: BackEndService,
@@ -26,13 +28,32 @@ export class UploadComponent implements OnInit {
   getWeather(): void {
     this.backendService.getWeather().subscribe(data => {
       this.weather = data;
-      console.log(this.weather)});
+      });
   }
 
   onChooseFile(event): void {
-    console.log(event.target.value);
     this.filePath = event.target.value.substring(event.target.value.lastIndexOf('\\')+1);
-    this.excelReadingService.parseFile(event.target.files[0]);
+    
+    let workBook = null;
+    let jsonData = null;
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.onload = (event) => {
+      const data = reader.result;
+      workBook = XLSX.read(data, { type: 'binary' });
+      jsonData = workBook.SheetNames.reduce((initial, name) => {
+        const sheet = workBook.Sheets[name];
+        initial[name] = XLSX.utils.sheet_to_json(sheet);
+        return initial;
+      }, {});
+      this.readData = jsonData;      
+      
+    }
+    reader.readAsBinaryString(file);
+  }
+
+  onUpload() {
+    console.log(this.readData)
   }
 
 }
